@@ -55,6 +55,20 @@ Functional Simulation:
 (Note : File name should be with HDL Extension)
 
 ### Verilog code for 4-Bit Up-Down Counter:
+`timescale 1ns / 1 ns
+module counter(clk,m,rst,count);
+input clk,m,rst;
+output reg [3:0] count;
+always@(posedge clk or negedge rst)
+begin
+if (!rst)
+count=0;
+else if(m)
+count=count+1;
+else
+count=count-1;
+end
+endmodule
 
 */Program  for  4-Bit Up-Down Counter
 
@@ -65,6 +79,32 @@ Functional Simulation:
 	Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (4bitup_down_count_tb.v).
 
 ### Test-bench code for 4-Bit Up-Down Counter:
+`timescale 1ns / 1ns
+module counter_test;
+reg clk,rst,m;
+wire [3:0] count;
+initial
+begin
+clk=0;
+rst=0;#5;
+rst=1;
+end
+initial
+begin
+m=1;
+#160 m=0;
+end
+
+counter counter1 (clk,m,rst, count);
+
+always #5 clk=~clk;
+ 
+initial $monitor("Time=%t rst=%b clk=%b count=%b" , $time,rst,clk,count);
+
+initial
+#320 $finish;
+
+endmodule
 
 */Test bench Program  for  4-Bit Up-Down Counter
 
@@ -77,11 +117,16 @@ It will invoke the nclaunch window for functional simulation we can compile,elab
 
 ## Fig 3: Setting Multi-step simulation
 
+![Screenshot (39)](https://github.com/user-attachments/assets/e77bed6a-cc97-4d75-bce9-23b282af4c84)
+
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure
 
 Click the cds.lib file and save the file by clicking on Save option
 
 ## Fig 4: cds.lib file Creation
+
+![Screenshot (13)](https://github.com/user-attachments/assets/92c51ee6-58f1-422f-b4a3-c22c57ab7f1d)
+
 
 	Save cds.lib file and select the correct option for cds.lib file format based on the  HDL Language and Libraries used.
 
@@ -125,6 +170,9 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 
 ## Fig 7: Compiled database in worklib
 
+![Screenshot (33)](https://github.com/user-attachments/assets/b7714a46-72a0-4d53-886d-0e45bb7be520)
+
+
 	After compilation it will come under worklib you can see in right side window
 
 	Select the test bench and compile it. It will come under worklib. Under Worklib you can see the module and test-bench. 
@@ -154,6 +202,9 @@ It contains statements that map logical library names to their physical director
 
 ## Fig 8: Elaboration Launch Option
 
+![Screenshot (34)](https://github.com/user-attachments/assets/b68f55a7-15c7-419d-99bc-a72fc91efdcd)
+
+
 ### Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
 
 	Inputs: Compiled and Elaborated top level module name 
@@ -166,7 +217,11 @@ It contains statements that map logical library names to their physical director
 
 ## Fig 9: Design Browser window for simulation
 
+![Screenshot (36)](https://github.com/user-attachments/assets/b3ac7a51-0c03-4ce5-8d26-63eba6340bde)
+
 ## Fig 10: Simulation Waveform Window
 
-## Fig 11: Simulation Waveform Window
+![Screenshot (37)](https://github.com/user-attachments/assets/e31ec797-c673-4397-8e78-d945bdd080a1)
+
+
 
